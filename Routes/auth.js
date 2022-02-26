@@ -13,49 +13,12 @@ const findOrCreate = require('mongoose-findorcreate');
 const DocController = require("../Controllers/DocController");
 const Student = require("../Models/users")
 
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
 
-
-        cb(null, "uploads")
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.fieldname + "-" + Date.now()+".pdf")
-    }
-})
-
-const uploadStorage = multer({ storage: storage })
-
-
-reuter.use(session({
-  secret: process.env.SECRET,
-  resave: false,
-  saveUninitialized: false
-}));
-
-reuter.use(passport.initialize());
-reuter.use(passport.session());
-
-
-
-
-passport.use(Student.createStrategy());
-
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
-
-passport.deserializeUser(function(id, done) {
-  Student.findById(id, function(err, user) {
-    done(err, user);
-  });
-});
-
-reuter.post("/submit",uploadStorage.single("strex"),DocController.doc_submit);
+reuter.post("/submit",[DocController.isUserLoggedIn,DocController.uploadStorage.single("strex")],DocController.doc_submit);
 
 reuter.post("/register", DocController.doc_register);
 
-reuter.post("/login",DocController.doc_login);
+reuter.post("/login", DocController.doc_login);
 
 
 

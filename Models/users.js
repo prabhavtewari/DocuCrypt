@@ -4,7 +4,6 @@ const findOrCreate = require('mongoose-findorcreate');
 
 
 const studentsSchema = new mongoose.Schema ({
-  username: String,
   email: String,
   password: String,
   pdf: String,
