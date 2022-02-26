@@ -9,10 +9,6 @@ html {
   min-height: calc(100vh - 118px);
 }
 
-.text-area-wrap,
-textarea.form-control {
-  height: 40vh !important;
-}
 a.nostyle:link {
   text-decoration: inherit;
   color: inherit;
@@ -42,15 +38,6 @@ a.nostyle:visited {
   transform: scale(1.1);
 }
 
-/* .trash-can {
-  height: 30px;
-}
-a.delete {
-  position: absolute;
-  top: 0;
-  right: 0;
-} */
-
 footer,
 nav {
   background-color: rgb(119, 45, 49);
@@ -77,4 +64,10 @@ nav {
 .question
 {
     padding: 20px 10px;
+}
+
+.form-signin
+{
+  width: 100%;
+  max-width: 350px;
 }

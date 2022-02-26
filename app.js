@@ -25,6 +25,10 @@ app.get('/uploadFile', (req, res) => {
   res.render('uploadFile', { title: 'Test Window' });
 });
 
+app.get('/login', (req, res) => {
+  res.render('login', { title: 'Login' });
+});
+
 
 app.listen(3000, function() {
   console.log("Server started on port 3000.");
