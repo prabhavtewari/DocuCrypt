@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+.drag-area{
+  border: 2px dashed rgb(0, 0, 0);
+  height: 500px;
+  width: 700px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.drag-area.active{
+  border: 2px solid rgb(231, 72, 72);
+}
+.drag-area .icon{
+  font-size: 100px;
+  color: rgb(201, 57, 57);
+}
+.drag-area header{
+  font-size: 30px;
+  font-weight: 500;
+  color: rgb(255, 49, 49);
+}
+.drag-area span{
+  font-size: 25px;
+  font-weight: 500;
+  color: rgb(253, 54, 54);
+  margin: 10px 0 15px 0;
+}
+.drag-area button{
+  padding: 10px 25px;
+  font-size: 20px;
+  font-weight: 500;
+  border: none;
+  outline: none;
+  background: rgb(184, 61, 61);
+  color: #5256ad;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.drag-area img{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+.icon img{
+  width: 20vw;
+}
