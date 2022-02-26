@@ -1,13 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <%- include('./partials/head'); %>
 </head>
+
 <body>
-    Upload Page
-    <a href="/">Home</a>
+    <%- include('./partials/nav'); %>
+        <div class="container page-body">
+
+            <h1 class="py-3 ">Exam Name</h1>
+            <div class="question">
+                <b> Q1. </b>
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi deserunt nam ex voluptatibus sint sunt?
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure labore ducimus quod ad. Quae possimus
+                odio dolores. Natus ducimus laboriosam eligendi id voluptas rem! Pariatur quisquam sequi nobis soluta
+                vero!
+            </div>
+            <form action="" enctype="multipart/form-data">
+                <input type="file" name='strex' id='strex'>
+                <input type="button" value="Get Key" id='cryptfile'>
+            </form>
+            <div id="outputDiv"></div>
+            <div id="outputSpeed"></div>
+            <input type="button" value="Test Speed" id='testSpeed'>
+
+        </div>
+        <%- include('./partials/foot'); %>
+            <script src="/scripts/sha256.js"></script>
+            <script>
+
+                document.getElementById('cryptfile').onclick = function () {
+
+                    var file = document.getElementById('strex');
+
+                    if (file.files.length) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            document.getElementById('outputDiv').innerHTML = SHA256(e.target.result);
+                            // console.log(e.target.result);
+                        };
+
+                        reader.readAsText(file.files[0]);
+
+                    }
+
+                    return false;
+                }
+            </script>
+            <script>
+                var imageAddr = "https://res.cloudinary.com/dpnkosbg4/image/upload/v1645816602/DocuCrypt/test_qphjqt.jpg";
+                var downloadSize = 3379000; //bytes
+
+                function ShowProgressMessage(msg) {
+                    if (console) {
+                        if (typeof msg == "string") {
+                            console.log(msg);
+                        } else {
+                            for (var i = 0; i < msg.length; i++) {
+                                console.log(msg[i]);
+                            }
+                        }
+                    }
+
+                    var actualHTML = (typeof msg == "string") ? msg : msg.join("<br />");
+                    document.getElementById("outputSpeed").innerHTML = actualHTML;
+
+                }
+
+                function InitiateSpeedDetection() {
+                    ShowProgressMessage("Testing Speed");
+                    window.setTimeout(MeasureConnectionSpeed, 1);
+                };
+
+                if (window.addEventListener) {
+                    window.addEventListener('load', InitiateSpeedDetection, false);
+                } else if (window.attachEvent) {
+                    window.attachEvent('onload', InitiateSpeedDetection);
+                }
+
+                function MeasureConnectionSpeed() {
+                    var startTime, endTime;
+                    var download = new Image();
+                    download.onload = function () {
+                        endTime = (new Date()).getTime();
+                        showResults(); 
+                        // return speedMbps;
+                    }
+
+                    download.onerror = function (err, msg) {
+                        ShowProgressMessage("Error in measuring connection speed");
+                    }
+
+                    startTime = (new Date()).getTime();
+                    var cacheBuster = "?nnn=" + startTime;
+                    download.src = imageAddr + cacheBuster;
+
+                    function showResults() {
+                        var duration = (endTime - startTime) / 1000;
+                        var bitsLoaded = downloadSize * 8;
+                        var speedMbps = (bitsLoaded / (1024 * 1024 * duration)).toFixed(2);
+                        ShowProgressMessage([
+                            "Your connection speed is: "+ speedMbps + " Mbps",
+                        ]);
+                        // return speedMbps;
+                    }
+                }
+
+                document.getElementById('testSpeed').onclick = () => { InitiateSpeedDetection() };
+            </script>
+
 </body>
+
 </html>

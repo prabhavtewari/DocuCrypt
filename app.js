@@ -41,6 +41,10 @@ app.get('/uploadFile', (req, res) => {
   res.render('uploadFile', { title: 'Test Window' });
 });
 
+app.get('/login', (req, res) => {
+  res.render('login', { title: 'Login' });
+});
+
 
 
 app.get("/login", function(req, res){
