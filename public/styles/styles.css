@@ -1,0 +1,80 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,800;1,600&family=Permanent+Marker&display=swap");
+body,
+html {
+  padding: 0;
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+}
+.page-body {
+  min-height: calc(100vh - 118px);
+}
+
+.text-area-wrap,
+textarea.form-control {
+  height: 40vh !important;
+}
+a.nostyle:link {
+  text-decoration: inherit;
+  color: inherit;
+  cursor: auto;
+}
+
+a.nostyle:visited {
+  text-decoration: inherit;
+  color: inherit;
+  cursor: auto;
+}
+.grow {
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.grow:hover {
+  transform: scale(1.01);
+}
+
+.grow1 {
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.grow1:hover {
+  transform: scale(1.1);
+}
+
+/* .trash-can {
+  height: 30px;
+}
+a.delete {
+  position: absolute;
+  top: 0;
+  right: 0;
+} */
+
+footer,
+nav {
+  background-color: rgb(119, 45, 49);
+}
+
+.navbar-brand {
+  padding-left: 20px;
+  font-family: "Permanent Marker", cursive;
+  font-size: 1.5em !important;
+}
+
+/* .card
+{
+    border-color: rgb(119, 45, 49)!important;
+} */
+
+.nav-item.active *
+{
+    color: white!important;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.question
+{
+    padding: 20px 10px;
+}
