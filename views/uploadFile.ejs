@@ -11,7 +11,7 @@
         <div class="container page-body">
 
             <h1 class="py-3 ">Exam Name</h1>
-            <form action="/auth/submit" method="POST" enctype="multipart/form-data" class="row">
+            <form action="/api/auth/submit" method="POST" enctype="multipart/form-data" class="row">
                 <div class="col-lg-9">
                     <div class="question">
                         <b> Q1. </b>
@@ -48,10 +48,10 @@
                         <div id="outputSpeed"></div>
                     </div>
                     <p id="status"></p>
-                    <input type="button" value="Create Key and Check Speed" id="submitTest"
+                    <input type="button" value="Create Key and Check Speed"  id="submitTest"
                         class="btn btn-outline-primary w-100">
                     <input type="text" name="SHA-key" id="SHA-key" value="" class="w-100 form-control py-1 my-1"
-                        disabled>
+                       >
                     <!-- <input type="button" id="copyBtn"onclick="copyToClip()" value="Copy text"></input> -->
                     <!-- <input type="text" value="Hello World" id="myInput">
                     <button onclick="myFunction()">Copy text</button>  -->
@@ -206,7 +206,7 @@
                     var speedX = await InitiateSpeedDetection();
                     if (speedX.error === "Couldn't get test file")
                         document.getElementById("status").innerHTML = "Oops Something went wrong :'(";
-                    else if (speedX.speed > 200.0) {
+                    else if (speedX.speed > 1.0) {
                         document.getElementById("status").innerHTML = "File ready to upload <hr>";
                         var key = await getKey();
                         console.log(key);
@@ -214,6 +214,7 @@
                     }
                     else {
                         document.getElementById("status").innerHTML = "<div class='text-danger'>Your Internet Connection is unstable, please log back in within 24 hours and submit file when connection stablises</div>";
+                        await getKey();
                         document.getElementById("submitButtonAlt").style.display = "block";
 
                     }

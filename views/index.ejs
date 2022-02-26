@@ -7,14 +7,90 @@
 
 <body>
     <%- include('./partials/nav'); %>
-        <div class="container page-body">
-            <h1 class="py-4 text-center">Home Page</h1>
-            <div class="d-flex justify-content-center">
-                <!-- <a href="/" class="text-muted">Home</a> -->
+        <section class="hero">
+            <div class="container">
+                <div class="row h-100">
+                    <div class="col-lg-6 d-flex flex-column justify-content-center">
+                        <!-- <h1>DocuCrypt</h1> -->
+                        <h1 class="heroText">Don't Let Unstable Internet Ruin Your Semester!</h1>
+                    </div>
+                    <div class="col-lg-6 d-flex align-items-center">
+                        <img src="/images/study_illu.svg" alt="Online Exam Vectors by Vecteezy"
+                            title="Online Exam Vectors by Vecteezy" class="heroImg w-100 d-none d-md-block">
+                    </div>
+                </div>
             </div>
+        </section>
+        <section class="details pb-5">
+            <div class="container">
+                <div class="row h-100">
+                    <div class="col-lg-6 d-flex align-items-center">
+                        <img src="/images/encrypt.jpg" alt="Online Exam Vectors by Vecteezy"
+                            title="Online Exam Vectors by Vecteezy" class="w-100">
+                    </div>
+                    <div class="col-lg-6 d-flex flex-column justify-content-center">
+                        <ul class="detailsList">
+                            <li>Eliminate the chances of not being able to upload your answer on time beacuse of bad
+                                internet.</li>
+                            <li>DocuCrypt creates a SHA-256 signature of your PDF on your browser.</li>
+                            <li>Upload your answer upto 24 hours after the exam ends.</li>
+                            <li>The SHA signature ensures that your answer PDF hasn't been edited after the test time.
+                            </li>
+                        </ul>
 
-        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <section class="CTA mb-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-center">
+                    <h1>Get Started</h1>
+                    </div>
+                    <div class="col-lg-6 d-flex justify-content-center">
+                        <div class="card w-100 grow1 studentCard">
+                            <div class="card-body text-center d-flex flex-column justify-content-center">
+                                <h2>Student Login</h2>    
+                                <img src="/images/student.jpg" alt="" srcset="" class="d-none d-sm-block">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 d-flex justify-content-center">
+                        <div class="card w-100 grow1 teacherCard">
+                            <div class="card-body text-center d-flex flex-column justify-content-center">
+                                <h2>Teacher Login</h2>    
+                                <img src="/images/teacher.jpg" alt="" srcset="" class="d-none d-sm-block">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <%- include('./partials/foot'); %>
+            <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js'></script>
+            <script>
+                const floatAnimation = () => {
+                    const animHero = new TimelineMax({ repeat: -1 });
+                    animHero
+                        .to('.heroImg', 3, { y: '-=40', rotation: '+=2', ease: Power1.easeInOut })
+                        .to('.heroImg', 3, { y: '+=40', rotation: '-=3', ease: Power1.easeInOut })
+                        .to('.heroImg', 3, { y: '-=30', rotation: '-=2', ease: Power1.easeInOut })
+                        .to('.heroImg', 3, { y: '+=30', rotation: '+=3', ease: Power1.easeInOut })
+                        .to('.heroImg', 2, { y: '-=20', rotation: '-=1', ease: Power1.easeInOut })
+                        .to('.heroImg', 2, { y: '+=20', rotation: '-=2', ease: Power1.easeInOut })
+                        .to('.heroImg', 2, { y: '-=30', rotation: '+=3', ease: Power1.easeInOut })
+                        .to('.heroImg', 2, { y: '+=30', ease: Power1.easeInOut })
+
+                    TweenLite.to(animHero, 27, { ease: Power1.easeInOut })
+
+                }
+
+                floatAnimation();
+                // floatAnimation1();
+            </script>
 </body>
 
 </html>

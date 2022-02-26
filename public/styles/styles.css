@@ -111,3 +111,33 @@ nav {
   visibility: visible;
   opacity: 1;
 }
+
+
+/* INDEX */
+section.hero, section.hero div{
+  height: calc(100vh - 62px);
+  background-color: #FFFFFF;
+}
+.heroText{
+  font-size: 3em;
+  font-weight: 800;
+  font-family: "Open Sans", sans-serif;
+  height:fit-content!important;
+}
+
+.detailsList li{
+  font-size: 1.2em;
+  font-weight:600!important;
+  text-align: justify;
+}
+.studentCard,.teacherCard{
+  height: 150px;
+}
+
+.studentCard .card-body img,.teacherCard .card-body img{
+  height: 100px;
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+
+}
