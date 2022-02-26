@@ -3,6 +3,7 @@
 
 <head>
     <%- include('./partials/head'); %>
+        <!-- <link rel="stylesheet" href="/styles/dragNdrop.css"> -->
 </head>
 
 <body>
@@ -10,6 +11,7 @@
         <div class="container page-body">
 
             <h1 class="py-3 ">Exam Name</h1>
+<<<<<<< HEAD
             <div class="question">
                 <b> Q1. </b>
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi deserunt nam ex voluptatibus sint sunt?
@@ -21,35 +23,92 @@
                 <input type="file" name='strex' id='strex'>
                 <input type="button" name='sKey' value="Get Key" id='cryptfile'>
                 <input type="submit" name="submit">
+=======
+            <form action="/auth/submit" method="POST" enctype="multipart/form-data" class="row">
+                <div class="col-lg-9">
+                    <div class="question">
+                        <b> Q1. </b>
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi deserunt nam ex voluptatibus
+                        sint sunt?
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure labore ducimus quod ad. Quae
+                        possimus
+                        odio dolores. Natus ducimus laboriosam eligendi id voluptas rem! Pariatur quisquam sequi nobis
+                        soluta
+                        vero!
+                    </div>
+                    <div class="answer">
+                        <input type="file" name='strex' id='strex'>
+                        <!-- <div class="drag-area">
+                            <div class="icon"><img src="/images/cloud.svg" alt="" srcset=""></div>
+                            <header>Drag & Drop to Upload File</header>
+                            <span>OR</span>
+                            <button>Browse File</button>
+                            <input type="file" name='strex' id='strex'>
+                        </div> -->
+                    </div>
+
+                </div>
+                <div class="col-lg-3">
+                    <div class="w-100">
+                        <b>
+                            Time Remaining:
+                            <p id="timer"></p>
+                        </b>
+                        <hr>
+                    </div>
+
+                    <div>
+                        <div id="outputSpeed"></div>
+                    </div>
+                    <p id="status"></p>
+                    <input type="button" value="Create Key and Check Speed" id="submitTest"
+                        class="btn btn-outline-primary w-100">
+                    <input type="text" name="SHA-key" id="SHA-key" value="" class="w-100 form-control py-1 my-1"
+                        disabled>
+                    <!-- <input type="button" id="copyBtn"onclick="copyToClip()" value="Copy text"></input> -->
+                    <!-- <input type="text" value="Hello World" id="myInput">
+                    <button onclick="myFunction()">Copy text</button>  -->
+
+                    <input type="submit" id="submitButton" value="Confirm & Submit"
+                        class="w-100 btn btn-outline-success" style="display:none">
+                    <input type="submit" id="submitButtonAlt" value="Send Key & Upload Later"
+                        class="w-100 btn btn-outline-warning" style="display:none">
+                </div>
+>>>>>>> 9b444972394aa71bb3a5a8ca288b32af2277a527
             </form>
-            <div id="outputDiv"></div>
-            <div id="outputSpeed"></div>
-            <input type="button" value="Test Speed" id='testSpeed'>
 
         </div>
         <%- include('./partials/foot'); %>
+            <!-- key gen -->
             <script src="/scripts/sha256.js"></script>
+            <!-- <script src="/scripts/dragNdrop.js"></script> -->
             <script>
 
-                document.getElementById('cryptfile').onclick = function () {
+                async function getKey() {
+                    return new Promise((resolve, reject) => {
+                        var file = document.getElementById('strex');
 
-                    var file = document.getElementById('strex');
+                        if (file.files.length) {
+                            var reader = new FileReader();
 
-                    if (file.files.length) {
-                        var reader = new FileReader();
+                            reader.onload = function (e) {
+                                var key = SHA256(e.target.result);
+                                document.getElementById('SHA-key').value = key;
+                                resolve({ key: key, error: "" });
+                            };
 
-                        reader.onload = function (e) {
-                            document.getElementById('outputDiv').innerHTML = SHA256(e.target.result);
-                            // console.log(e.target.result);
-                        };
+                            reader.readAsText(file.files[0]);
 
-                        reader.readAsText(file.files[0]);
+                        }
+                        else {
+                            document.getElementById('SHA-key').value = "No File Uploaded";
+                            resolve({ error: "No File Uploaded" });
+                        }
 
-                    }
-
-                    return false;
+                    });
                 }
             </script>
+            <!-- speed test -->
             <script>
                 var imageAddr = "https://res.cloudinary.com/dpnkosbg4/image/upload/v1645816602/DocuCrypt/test_qphjqt.jpg";
                 var downloadSize = 3379000; //bytes
@@ -70,17 +129,44 @@
 
                 }
 
-                function InitiateSpeedDetection() {
+                async function InitiateSpeedDetection() {
                     ShowProgressMessage("Testing Speed");
-                    window.setTimeout(MeasureConnectionSpeed, 1);
+                    var speedMbps = await MeasureConnectionSpeed();
+                    return speedMbps;
                 };
 
-                if (window.addEventListener) {
-                    window.addEventListener('load', InitiateSpeedDetection, false);
-                } else if (window.attachEvent) {
-                    window.attachEvent('onload', InitiateSpeedDetection);
+                async function MeasureConnectionSpeed() {
+                    return new Promise((resolve, reject) => {
+                        var startTime, endTime;
+                        var download = new Image();
+                        download.onload = function () {
+                            endTime = (new Date()).getTime();
+                            showResults();
+                        }
+
+                        download.onerror = function (err, msg) {
+                            ShowProgressMessage("Error in measuring connection speed");
+                            resolve({ error: "Couldn't get test file" });
+                        }
+
+                        startTime = (new Date()).getTime();
+                        var cacheBuster = "?nnn=" + startTime;
+                        download.src = imageAddr + cacheBuster;
+
+                        function showResults() {
+                            var duration = (endTime - startTime) / 1000;
+                            var bitsLoaded = downloadSize * 8;
+                            var speedMbps = (bitsLoaded / (1024 * 1024 * duration)).toFixed(2);
+                            ShowProgressMessage([
+                                "Speed: " + speedMbps + " Mbps",
+                            ]);
+                            resolve({ error: "", speed: speedMbps });
+                        }
+                    });
+
                 }
 
+<<<<<<< HEAD
                 function MeasureConnectionSpeed() {
                     var startTime, endTime;
                     var download = new Image();
@@ -110,7 +196,93 @@
                 }
 
                 document.getElementById('testSpeed').onclick = () => { InitiateSpeedDetection() };
+=======
+>>>>>>> 9b444972394aa71bb3a5a8ca288b32af2277a527
             </script>
+            <!-- timer -->
+            <script>
+                // Set the date we're counting down to
+                var countDownDate = new Date("2022/02/27 16:27:30").getTime();
+
+                // Update the count down every 1 second
+                var x = setInterval(function () {
+
+                    // Get today's date and time
+                    var now = new Date().getTime();
+
+                    // Find the distance between now and the count down date
+                    var distance = countDownDate - now;
+
+                    // Time calculations for days, hours, minutes and seconds
+                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    document.getElementById("timer").innerHTML = days + " : " + hours + " : " + minutes + " : " + seconds;
+
+                    // If the count down is finished, write some text
+                    if (distance < 0) {
+                        clearInterval(x);
+                        document.getElementById("timer").innerHTML = "Time's Up";
+                        submitTest();
+                    }
+                }, 1000);
+
+            </script>
+            <script>
+
+                function clearInputFile(f) {
+                    if (f.value) {
+                        try {
+                            f.value = ''; //for IE11, latest Chrome/Firefox/Opera...
+                        } catch (err) { }
+                        if (f.value) { //for IE5 ~ IE10
+                            var form = document.createElement('form'),
+                                parentNode = f.parentNode, ref = f.nextSibling;
+                            form.appendChild(f);
+                            form.reset();
+                            parentNode.insertBefore(f, ref);
+                        }
+                    }
+                }
+
+                document.getElementById('submitTest').onclick = () => { submitTest() };
+                async function submitTest() {
+                    var speedX = await InitiateSpeedDetection();
+                    if (speedX.error === "Couldn't get test file")
+                        document.getElementById("status").innerHTML = "Oops Something went wrong :'(";
+                    else if (speedX.speed > 200.0) {
+                        document.getElementById("status").innerHTML = "File ready to upload <hr>";
+                        var key = await getKey();
+                        console.log(key);
+                        document.getElementById("submitButton").style.display = "block";
+                    }
+                    else {
+                        document.getElementById("status").innerHTML = "<div class='text-danger'>Your Internet Connection is unstable, please log back in within 24 hours and submit file when connection stablises</div>";
+                        document.getElementById("submitButtonAlt").style.display = "block";
+
+                    }
+                }
+                document.getElementById('submitButtonAlt').onclick = () => {
+                    clearInputFile(document.getElementById('strex'));
+                    
+                }
+            </script>
+
+            <!-- <script>
+                function copyToClip() {
+                    // e.preventDefault();
+                    var copyText = document.getElementById("SHA-key");
+                    copyText.select();
+                    copyText.setSelectionRange(0, 99999);
+                    navigator.clipboard.writeText(copyText.value)
+                    // var tooltip = document.getElementById("myTooltip");
+                    alert( "Copied: " + copyText.value);
+                }
+                document.getElementById('copyBtn').onclick = () => {copyToClip()}
+
+            </script> -->
 
 </body>
 
