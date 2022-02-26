@@ -13,7 +13,24 @@ const authRoute = require("./Routes/auth");
 
 const conn_uri = process.env.MONGO_URI;
 
-mongoose.connect(conn_uri, { useNewUrlParser: true, useUnifiedTopology: true })
+const app = express();
+
+app.use(express.static("public"));
+app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
+app.use(session({
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+mongoose.connect(conn_uri, { useNewUrlParser: true })
   .then((res) => {
     console.log("Connected to DB");
     app.listen(3000);
@@ -22,13 +39,19 @@ mongoose.connect(conn_uri, { useNewUrlParser: true, useUnifiedTopology: true })
 
 mongoose.set("useCreateIndex", true);
 
-const app = express();
+const Student = require("./Models/users")
 
-app.use(express.static("public"));
-app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+passport.use(Student.createStrategy());
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  Student.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
 
 
 app.use("/api/auth", authRoute)
@@ -43,6 +66,10 @@ app.get('/uploadFile', (req, res) => {
 
 app.get('/login', (req, res) => {
   res.render('login', { title: 'Login' });
+});
+
+app.get('/register', (req, res) => {
+  res.render('register', { title: 'Sign Up' });
 });
 
 

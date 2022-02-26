@@ -17,9 +17,10 @@
                 odio dolores. Natus ducimus laboriosam eligendi id voluptas rem! Pariatur quisquam sequi nobis soluta
                 vero!
             </div>
-            <form action="" enctype="multipart/form-data">
+            <form action="/api/auth/submit" method="POST" enctype="multipart/form-data">
                 <input type="file" name='strex' id='strex'>
-                <input type="button" value="Get Key" id='cryptfile'>
+                <input type="button" name='sKey' value="Get Key" id='cryptfile'>
+                <input type="submit" name="submit">
             </form>
             <div id="outputDiv"></div>
             <div id="outputSpeed"></div>
@@ -85,7 +86,7 @@
                     var download = new Image();
                     download.onload = function () {
                         endTime = (new Date()).getTime();
-                        showResults(); 
+                        showResults();
                         // return speedMbps;
                     }
 
