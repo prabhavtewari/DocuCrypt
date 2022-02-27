@@ -12,11 +12,19 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const findOrCreate = require('mongoose-findorcreate');
 const DocController = require("../Controllers/DocController");
 const Student = require("../Models/users")
+const Teacher = require("../Models/teacher")
+const {Test,testSchema} = require("../Models/test")
+
+reuter.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 
 reuter.post("/submit",[DocController.isUserLoggedIn,DocController.uploadStorage.single("strex")],DocController.doc_submit);
 
 reuter.post("/register", DocController.doc_register);
+
+reuter.post("/teachReg", DocController.doc_teach_reg);
 
 reuter.post("/login", DocController.doc_login);
 

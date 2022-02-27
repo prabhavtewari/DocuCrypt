@@ -11,20 +11,7 @@
         <div class="container page-body">
 
             <h1 class="py-3 ">Exam Name</h1>
-<<<<<<< HEAD
-            <div class="question">
-                <b> Q1. </b>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi deserunt nam ex voluptatibus sint sunt?
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure labore ducimus quod ad. Quae possimus
-                odio dolores. Natus ducimus laboriosam eligendi id voluptas rem! Pariatur quisquam sequi nobis soluta
-                vero!
-            </div>
-            <form action="/api/auth/submit" method="POST" enctype="multipart/form-data">
-                <input type="file" name='strex' id='strex'>
-                <input type="button" name='sKey' value="Get Key" id='cryptfile'>
-                <input type="submit" name="submit">
-=======
-            <form action="/auth/submit" method="POST" enctype="multipart/form-data" class="row">
+            <form action="/api/auth/submit" method="POST" enctype="multipart/form-data" class="row">
                 <div class="col-lg-9">
                     <div class="question">
                         <b> Q1. </b>
@@ -61,10 +48,10 @@
                         <div id="outputSpeed"></div>
                     </div>
                     <p id="status"></p>
-                    <input type="button" value="Create Key and Check Speed" id="submitTest"
+                    <input type="button" value="Create Key and Check Speed"  id="submitTest"
                         class="btn btn-outline-primary w-100">
                     <input type="text" name="SHA-key" id="SHA-key" value="" class="w-100 form-control py-1 my-1"
-                        disabled>
+                       >
                     <!-- <input type="button" id="copyBtn"onclick="copyToClip()" value="Copy text"></input> -->
                     <!-- <input type="text" value="Hello World" id="myInput">
                     <button onclick="myFunction()">Copy text</button>  -->
@@ -74,7 +61,6 @@
                     <input type="submit" id="submitButtonAlt" value="Send Key & Upload Later"
                         class="w-100 btn btn-outline-warning" style="display:none">
                 </div>
->>>>>>> 9b444972394aa71bb3a5a8ca288b32af2277a527
             </form>
 
         </div>
@@ -166,38 +152,6 @@
 
                 }
 
-<<<<<<< HEAD
-                function MeasureConnectionSpeed() {
-                    var startTime, endTime;
-                    var download = new Image();
-                    download.onload = function () {
-                        endTime = (new Date()).getTime();
-                        showResults();
-                        // return speedMbps;
-                    }
-
-                    download.onerror = function (err, msg) {
-                        ShowProgressMessage("Error in measuring connection speed");
-                    }
-
-                    startTime = (new Date()).getTime();
-                    var cacheBuster = "?nnn=" + startTime;
-                    download.src = imageAddr + cacheBuster;
-
-                    function showResults() {
-                        var duration = (endTime - startTime) / 1000;
-                        var bitsLoaded = downloadSize * 8;
-                        var speedMbps = (bitsLoaded / (1024 * 1024 * duration)).toFixed(2);
-                        ShowProgressMessage([
-                            "Your connection speed is: "+ speedMbps + " Mbps",
-                        ]);
-                        // return speedMbps;
-                    }
-                }
-
-                document.getElementById('testSpeed').onclick = () => { InitiateSpeedDetection() };
-=======
->>>>>>> 9b444972394aa71bb3a5a8ca288b32af2277a527
             </script>
             <!-- timer -->
             <script>
@@ -252,7 +206,7 @@
                     var speedX = await InitiateSpeedDetection();
                     if (speedX.error === "Couldn't get test file")
                         document.getElementById("status").innerHTML = "Oops Something went wrong :'(";
-                    else if (speedX.speed > 200.0) {
+                    else if (speedX.speed > 1.0) {
                         document.getElementById("status").innerHTML = "File ready to upload <hr>";
                         var key = await getKey();
                         console.log(key);
@@ -260,6 +214,7 @@
                     }
                     else {
                         document.getElementById("status").innerHTML = "<div class='text-danger'>Your Internet Connection is unstable, please log back in within 24 hours and submit file when connection stablises</div>";
+                        await getKey();
                         document.getElementById("submitButtonAlt").style.display = "block";
 
                     }

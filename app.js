@@ -30,7 +30,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect(conn_uri, { useNewUrlParser: true })
+mongoose.connect(conn_uri, { useNewUrlParser: true, useUnifiedTopology: true})
   .then((res) => {
     console.log("Connected to DB");
     app.listen(3000);
@@ -40,8 +40,13 @@ mongoose.connect(conn_uri, { useNewUrlParser: true })
 mongoose.set("useCreateIndex", true);
 
 const Student = require("./Models/users")
+const Teacher = require("./Models/teacher")
+const {Test,testSchema} = require("./Models/test")
 
-passport.use(Student.createStrategy());
+
+passport.use('st-local',Student.createStrategy());
+passport.use('t-local',Teacher.createStrategy());
+// passport.use(Teacher.createStrategy());
 
 passport.serializeUser(function(user, done) {
   done(null, user.id);
@@ -62,6 +67,10 @@ app.get('/', (req, res) => {
 
 app.get('/uploadFile', (req, res) => {
   res.render('uploadFile', { title: 'Test Window' });
+});
+
+app.get('/teachReg', (req, res) => {
+  res.render('teachReg', { title: 'Teacher Sign Up' });
 });
 
 app.get('/login', (req, res) => {

@@ -1,16 +1,15 @@
 const mongoose = require("mongoose");
 const passportLocalMongoose = require("passport-local-mongoose");
 const findOrCreate = require('mongoose-findorcreate');
+const {Test,testSchema} = require("../Models/test")
 
 
 const studentsSchema = new mongoose.Schema ({
   email: String,
   password: String,
-  pdf: String,
-  sKey: String,
-  mentorId: String,
-  mentorName: String
-});
+},
+ { timestamps: true }
+);
 
 studentsSchema.plugin(passportLocalMongoose);
 studentsSchema.plugin(findOrCreate);

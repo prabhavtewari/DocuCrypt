@@ -1,13 +1,17 @@
 require('dotenv').config();
 
 const Student = require("../Models/users");
+const {Test,testSchema} = require("../Models/test")
+const Teacher = require("../Models/teacher")
 const multer = require("multer")
 const passportLocalMongoose = require("passport-local-mongoose");
+const mongoose = require("mongoose");
 // const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
 const passport = require("passport");
 const session = require('express-session');
 const cloudinary = require('cloudinary');
+const bodyParser = require("body-parser");
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -41,7 +45,7 @@ const doc_submit=async(req,res)=>{
         cloudinary.v2.uploader.upload("C:/Users/HP/Documents/NodeProjects/DocuCrypt/uploads/"+req.file.filename,
         { public_id: foundUser.id },
         function(error, result) {console.log(result,error); });
-        foundUser.sKey = submittedKey;
+
         foundUser.save(function(){
         // res.redirect("/exam");
         });
@@ -58,7 +62,45 @@ const doc_register=(req,res)=>{
       console.log(err);
       res.redirect("/register");
     } else {
-      passport.authenticate("local")(req, res, function(){
+      passport.authenticate("st-local")(req, res, function(){
+        res.redirect("/uploadFile");
+      });
+    }
+  });
+
+
+}
+
+const doc_teach_reg=(req,res)=>{
+  const newTest = new Test({
+    class: req.body.class,
+    s_time: req.body.stime,
+    e_time: req.body.etime,
+    test_name: req.body.tname,
+    teacherMail: req.body.username,
+    teacherName: req.body.name,
+    submission_window: req.body.wtime
+  })
+
+  const newTeacher = new Teacher({
+    tname: req.body.name,
+    class: req.body.class,
+    username : req.body.username
+  })
+
+  Teacher.register(newTeacher, req.body.password, function(err, user){
+    if (err) {
+      console.log(err);
+      res.redirect("/teachReg");
+    } else {
+
+      newTest.save();
+
+      passport.authenticate("t-local")(req, res, function(){
+
+        console.log("yooo")
+
+
         res.redirect("/uploadFile");
       });
     }
@@ -68,7 +110,7 @@ const doc_register=(req,res)=>{
 const doc_login=(req,res)=>{
 
   const student = new Student({
-    username: req.body.email,
+    username: req.body.username,
     password: req.body.password
   });
 
@@ -78,7 +120,7 @@ const doc_login=(req,res)=>{
     } else {
       console.log("elsepart");
 
-      passport.authenticate("local")(req, res, function(){
+      passport.authenticate("st-local")(req, res, function(){
         res.redirect("/uploadFile");
       });
     }
@@ -99,5 +141,6 @@ module.exports = {
   doc_register,
   doc_login,
   isUserLoggedIn,
-  uploadStorage
+  uploadStorage,
+  doc_teach_reg
 }

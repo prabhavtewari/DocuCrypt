@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head'); %>
+</head>
+
+<body>
+    <%- include('./partials/nav'); %>
+        <div class="container page-body d-flex flex-column justify-content-center">
+            <!-- <h1 class="py-4 text-center">Login Page</h1> -->
+            <div class="d-flex justify-content-center">
+
+                <main class="form-signin">
+                    <form action="/api/auth/teachReg" method="POST" class="text-center">
+                        <!-- <img class="mb-4" src="" alt="" width="72" height="57"> -->
+                        <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
+
+                        <div class="form-floating">
+                            <input type="text" name="name" class="form-control" id="floatingInput" placeholder="Firstname Lastname">
+                            <label for="floatingInput">Enter your name</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="text" name="class" class="form-control" id="floatingInput" placeholder="Enter your class name">
+                            <label for="floatingInput">Class Name</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="email" name="username" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <label for="floatingInput">Email address</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+                            <label for="floatingPassword">Password</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="text" name="tname" class="form-control" id="floatingInput" placeholder="Test Name">
+                            <label for="floatingInput">Test Name</label>
+                        <div class="form-floating">
+                            <input type="datetime-local" name="stime" class="form-control" id="floatingInput" placeholder="Enter Test Start Time">
+                            <label for="floatingInput">Test Start Time</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="datetime-local" name="etime" class="form-control" id="floatingInput" placeholder="Enter test End Time">
+                            <label for="floatingInput">Test End Time</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="number" name="wtime" class="form-control" id="floatingInput" placeholder="Enter test duration in mins">
+                            <label for="floatingInput">Test Window</label>
+                        </div>
+
+                        <div class="checkbox mb-3">
+                            <label>
+                                <input type="checkbox" value="remember-me"> Remember me
+                            </label>
+                        </div>
+                        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+                        <!-- <p class="mt-5 mb-3 text-muted">© 2017–2021</p> -->
+                    </form>
+                </main>
+            </div>
+
+        </div>
+        <%- include('./partials/foot'); %>
+</body>
+
+</html>
