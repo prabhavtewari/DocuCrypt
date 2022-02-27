@@ -14,6 +14,7 @@ const DocController = require("../Controllers/DocController");
 const Student = require("../Models/users")
 const Teacher = require("../Models/teacher")
 const {Test,testSchema} = require("../Models/test")
+const Answer = require("../Models/answer");
 
 reuter.use(bodyParser.urlencoded({
   extended: true
