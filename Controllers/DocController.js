@@ -48,10 +48,11 @@ const doc_submit = async (req, res) => {
               if (result) {
                 const newAns = new Answer({
                   class: req.body.class,
-                  test_name: req.body.name,
+                  test_name: req.body.testName,
                   SHA_key: req.body.SHA_key,
                   file_link: result.url,
                   st_id: foundUser.id,
+                  st_uname: req.user.username,
                   comment: req.body.comment,
                 });
                 newAns.save();

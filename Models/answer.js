@@ -9,6 +9,7 @@ const answerSchema = new mongoose.Schema ({
   file_link: String,
   s_id: String,
   st_id: String,
+  st_uname: String,
   comment: String
 },
  { timestamps: true }

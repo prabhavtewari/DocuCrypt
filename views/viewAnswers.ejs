@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head'); %>
+        <!-- <link rel="stylesheet" href="/styles/dragNdrop.css"> -->
+</head>
+
+<body>
+    <%- include('./partials/nav'); %>
+        <div class="container page-body">
+
+            <h1 class="py-3 fw-bold color-orange">View Answers</h1>
+            <div class="row bg-gray mb-5 pb-4">
+                <table class="table table-striped table-hover">
+                    <thead>
+
+                        <tr>
+                            <th scope="col">Student Email</th>
+                            <th scope="col">Class</th>
+                            <th scope="col">Test</th>
+                            <th scope="col">View Answer</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+
+                        <% answers.forEach (answer=> { %>
+
+                            <tr>
+
+                                <td>
+                                    <%= answer.st_uname?answer.st_uname:answer.st_id %>
+                                </td>
+                                <td>
+                                    <%= answer.class %>
+                                </td>
+                                <td>
+                                    <%= answer.test_name %>
+                                </td>
+                                <td>
+                                    <% if(answer.file_link){ %><%-"<a href=' "+answer.file_link+ "' class='grow'> Yes</a>" %><%}
+                                    else {%><%="Only Key"%><%}%>
+
+                                </td>
+                                <!-- </a> -->
+                            </tr>
+
+
+                            <% }); %>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <%- include('./partials/foot'); %>
+
+
+</body>
+
+</html>

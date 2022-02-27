@@ -115,6 +115,17 @@ app.get("/test/:id",(req,res)=>{
     });
 });
 
-// app.get('/SubmitLater',(req,res)=>{
+app.get('/SubmitLater',(req,res)=>{
+console.log(req);
+res.send('cry');
+});
 
-// })
+app.get('/viewAnswers',(req,res)=>{
+  Answer.find().sort({ createdAt: -1 })
+    .then(result => {
+      res.render('viewAnswers', { answers : result, title: 'View Answers' });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
