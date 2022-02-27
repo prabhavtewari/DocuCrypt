@@ -45,7 +45,7 @@ const doc_submit = (req, res) => {
 
   // }
   // res.redirect("/");
-  console.log(req.files);
+  // console.log(req.body);
 
   const submittedKey = req.body.sKey;
 
@@ -56,17 +56,18 @@ const doc_submit = (req, res) => {
       if (foundUser) {
 
         // cloudinary.v2.uploader.upload("C:/Users/HP/Documents/NodeProjects/DocuCrypt/uploads/"+req.file.filename,
-        // { public_id: foundUser.id },
-        // function(error, result) {console.log(result,error); });
+        cloudinary.v2.uploader.upload("C:/Users/prabh/Desktop/code/DocuCrypt/uploads/"+req.file.filename,
+        { public_id: foundUser.id },
+        function(error, result) {console.log(result.url,error); });
 
         foundUser.save(function(){
-        // res.redirect("/exam");
+        res.redirect("/");
         });
       }
     }
   });
 
-  console.log(req.file)
+  // console.log(req.file)
 };
 
 const doc_register = (req, res) => {
@@ -79,7 +80,7 @@ const doc_register = (req, res) => {
         res.redirect("/register");
       } else {
         passport.authenticate("st-local")(req, res, function () {
-          res.redirect("/uploadFile");
+          res.redirect("/studenDashboard");
         });
       }
     }
@@ -95,6 +96,7 @@ const doc_teach_reg = (req, res) => {
     teacherMail: req.body.username,
     teacherName: req.body.name,
     submission_window: req.body.wtime,
+    qs: req.body.question
   });
 
   const newTeacher = new Teacher({
@@ -111,9 +113,9 @@ const doc_teach_reg = (req, res) => {
       newTest.save();
 
       passport.authenticate("t-local")(req, res, function () {
-        console.log("yooo");
+        console.log("Test and Teacher added");
 
-        res.redirect("/uploadFile");
+        res.redirect("/");
       });
     }
   });

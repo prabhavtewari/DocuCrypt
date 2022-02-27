@@ -101,7 +101,13 @@ app.get("/studentDashboard", function (req, res) {
     });
 });
 
-app.post("/test",(req,res)=>{
-console.log(req.body);
-res.send("bub");
+app.get("/test/:id",(req,res)=>{
+  Test.findById(req.params.id)
+    .then(result => {
+      console.log(result+"this is result");
+      res.render('uploadFile', { test : result, title: 'Test Page' });
+    })
+    .catch(err => {
+      console.log(err);
+    });
 });

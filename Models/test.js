@@ -9,13 +9,13 @@ const testSchema = new mongoose.Schema ({
   test_name: String,
   teacherMail: String,
   teacherName: String,
-  qs:[String],
+  qs:String,
   submission_window : Number
 },
  { timestamps: true }
 );
 
-testSchema.plugin(passportLocalMongoose);
+testSchema.plugin(passportLocalMongoose, {usernameUnique: false,usernameField : 'test_name' });
 testSchema.plugin(findOrCreate);
 
 const Test = new mongoose.model("Test", testSchema);
