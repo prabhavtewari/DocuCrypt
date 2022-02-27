@@ -75,14 +75,6 @@ app.use("/api/auth", authRoute);
 app.get("/uploadFile", (req, res) => {
   res.render("uploadFile", { title: "Test Window" });
 });
-<<<<<<< HEAD
-=======
-// app.post("/auth/submit", (req, res) => {
-//   console.log(req.body);
-//   console.log(req.files);
-//   res.send("Hi");
-// });
->>>>>>> ac7e2b70e60d53e77f83e76cbe7f0924c1081951
 
 app.get('/teachReg', (req, res) => {
   res.render('teachReg', { title: 'Teacher Sign Up' });
@@ -93,11 +85,7 @@ app.get('/login', (req, res) => {
 });
 
 app.get("/register", function (req, res) {
-<<<<<<< HEAD
   res.render("register",{title:"Student Register"});
-=======
-  res.render("register", { title: 'Sign Up' });
->>>>>>> ac7e2b70e60d53e77f83e76cbe7f0924c1081951
 });
 
 
