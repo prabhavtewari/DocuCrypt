@@ -128,6 +128,7 @@ const doc_login = (req, res) => {
   req.login(student, function (err) {
     if (err) {
       console.log(err);
+      res.redirect("/login");
     } else {
       console.log("Student Signed In");
       passport.authenticate("st-local")(req, res, function () {

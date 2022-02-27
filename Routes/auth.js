@@ -19,8 +19,12 @@ reuter.use(bodyParser.urlencoded({
   extended: true
 }));
 
+<<<<<<< HEAD
 
 // reuter.post("/submit",[DocController.isUserLoggedIn],DocController.doc_submit);
+=======
+// reuter.post("/submit",DocController.isUserLoggedIn,DocController.doc_submit);
+>>>>>>> ac7e2b70e60d53e77f83e76cbe7f0924c1081951
 reuter.post("/submit",[DocController.isUserLoggedIn,DocController.uploadStorage.single("strex")],DocController.doc_submit);
 
 reuter.post("/register", DocController.doc_register);
