@@ -30,6 +30,8 @@ reuter.post("/teachReg", DocController.doc_teach_reg);
 
 reuter.post("/login", DocController.doc_login);
 
+reuter.post("/uploadAgain",DocController.uploadStorage.single("strex"),DocController.doc_uploadAgain);
+
 
 
 

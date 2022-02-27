@@ -41,10 +41,10 @@ const doc_submit = async (req, res) => {
     } else {
       if (foundUser) {
         if (req.file) {
-          // cloudinary.v2.uploader.upload("C:/Users/HP/Documents/NodeProjects/DocuCrypt/uploads/"+req.file.filename,
-          cloudinary.v2.uploader.upload(
-            "C:/Users/prabh/Desktop/code/DocuCrypt/uploads/" +
-              req.file.filename,
+          cloudinary.v2.uploader.upload("C:/Users/HP/Documents/NodeProjects/DocuCrypt/uploads/"+req.file.filename,
+          // cloudinary.v2.uploader.upload(
+          //   "C:/Users/prabh/Desktop/code/DocuCrypt/uploads/" +
+          //     req.file.filename,
             { public_id: foundUser.id },
             function (error, result) {
               if (result) {
@@ -99,6 +99,26 @@ const doc_submit = async (req, res) => {
   // console.log(req.file)
 };
 
+const doc_uploadAgain =async(req,res)=>{
+  await cloudinary.v2.uploader.upload("C:/Users/HP/Documents/NodeProjects/DocuCrypt/uploads/"+req.file.filename,
+  // cloudinary.v2.uploader.upload(
+  //   "C:/Users/prabh/Desktop/code/DocuCrypt/uploads/" +
+  //     req.file.filename,
+    { public_id: req.body.answerId },
+    function (error, result){
+      if(result){
+        Answer.findById(req.body.answerId,async(err,user)=>{
+          // user.update({"file_link": {"$exists": false}}, {"$set": {"file_link": req.body.id}});
+          // user.file_link=result.url;
+          user.file_link = result.url;
+          await user.save();
+          res.render("./submitConfirm",{title:"Submission",status:1});
+        })
+      }else{
+        console.log(error);
+      }
+    })
+}
 
 const doc_register = (req, res) => {
   Student.register(
@@ -195,5 +215,6 @@ module.exports = {
   doc_login,
   isUserLoggedIn,
   uploadStorage,
-  doc_teach_reg
+  doc_teach_reg,
+  doc_uploadAgain
 };
