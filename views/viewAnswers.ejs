@@ -3,7 +3,6 @@
 
 <head>
     <%- include('./partials/head'); %>
-        <!-- <link rel="stylesheet" href="/styles/dragNdrop.css"> -->
 </head>
 
 <body>
@@ -39,11 +38,13 @@
                                     <%= answer.test_name %>
                                 </td>
                                 <td>
-                                    <% if(answer.file_link){ %><%-"<a href=' "+answer.file_link+ "' class='grow'> Yes</a>" %><%}
-                                    else {%><%="Only Key"%><%}%>
+                                    <% if(answer.file_link){ %>
+                                    <%-"<a href=' "+answer.file_link+ "' class='grow'> Yes</a>" %>
+                                    <%}else {%>
+                                    <%="Only Key"%>
+                                    <%}%>
 
                                 </td>
-                                <!-- </a> -->
                             </tr>
 
 

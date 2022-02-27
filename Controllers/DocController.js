@@ -64,7 +64,7 @@ const doc_submit = async (req, res) => {
           );
 
           foundUser.save(function () {
-            res.redirect("/");
+            res.render("./submitConfirm",{title:"Submission",status:1});
           });
         }
         else{
@@ -78,7 +78,7 @@ const doc_submit = async (req, res) => {
                 newAns.save()
                 .then((result)=>{
                   console.log("Submitted Key");
-                  res.redirect("/UploadLater");
+                  res.render("./submitConfirm",{title:"Submission",status:2});
                 })
                 .catch((err)=>{
                   console.log(err);
@@ -155,8 +155,6 @@ const doc_login = (req, res) => {
       console.log(err);
       res.redirect("/login");
     } else {
-      console.log("elsepart");
-
       passport.authenticate("st-local")(req, res, function () {
         res.redirect("/studentDashboard");
       });

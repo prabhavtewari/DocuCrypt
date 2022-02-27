@@ -92,7 +92,7 @@ app.get("/register", function (req, res) {
 // const moment = require('moment');
 
 app.get("/studentDashboard", function (req, res) {
-  Test.find().sort({ createdAt: -1 })
+  Test.find().sort({ s_time: -1 })
     .then(result => {
       res.render('studentDash', { tests: result, title: 'Student Dashboard' });
     })

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head'); %>
+</head>
+
+<body>
+    <%- include('./partials/nav'); %>
+        <div class="container page-body d-flex flex-column justify-content-center">
+            <% if(status==1) { %>
+
+                <div>
+                    <h1 class="py-3 fw-bold text-success text-center">
+                        Answer Submitted
+                    </h1>
+                    <a href="/" class="nostyle text-muted">Home</a>
+                </div>
+
+                <% } else if(status==2) { %>
+                    <div>
+                        <h1 class="py-3 fw-bold text-warning text-center">
+                            SHA Key Submitted
+                        </h1>
+                        <h3 class="text-muted text-center">Head To Submit Later To Upload <br>Your File Withing The
+                            Submit Period</h3>
+                        <div class="d-flex flex-column justify-content-center text-center">
+                            <a href="/SubmitLater" class=" text-muted text-center">Submit Later</a>
+                        </div>
+                    </div>
+                    <% } 
+                    else  { %>
+                    <div>
+                        <h1 class="py-3 fw-bold text-danger text-center">
+                            There was an error!
+                        </h1>
+
+                        <div class="d-flex flex-column justify-content-center text-center">
+                            <a href="/SubmitLater" class=" text-muted text-center">Submit Later</a>
+                        </div>
+                        <div class="d-flex flex-column justify-content-center text-center">
+                            <a href="/" class=" text-muted text-center">Home</a>
+                        </div>
+                    </div>
+                    <% } %>
+
+        </div>
+        <%- include('./partials/foot'); %>
+
+
+</body>
+
+</html>

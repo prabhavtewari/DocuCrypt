@@ -190,3 +190,15 @@ width: 30%;
     border-radius: 30px;
     border: solid 2px #dddfe0;
   }
+.LoadPage{
+  height: 100vh;
+  width: 100vw;
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #0B2C3D;
+}
+.w-fit{
+  width: fit-content!important;
+}
