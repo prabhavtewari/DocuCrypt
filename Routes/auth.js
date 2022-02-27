@@ -15,6 +15,7 @@ const Student = require("../Models/users")
 const Teacher = require("../Models/teacher")
 const {Test,testSchema} = require("../Models/test")
 const Answer = require("../Models/answer");
+const cookieParser = require('cookie-parser')
 
 reuter.use(bodyParser.urlencoded({
   extended: true
@@ -28,6 +29,7 @@ reuter.post("/register", DocController.doc_register);
 reuter.post("/teachReg", DocController.doc_teach_reg);
 
 reuter.post("/login", DocController.doc_login);
+
 
 
 

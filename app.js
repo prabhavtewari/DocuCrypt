@@ -10,6 +10,7 @@ const expressfu = require("express-fileupload");
 const passportLocalMongoose = require("passport-local-mongoose");
 const findOrCreate = require("mongoose-findorcreate");
 const authRoute = require("./Routes/auth");
+const cookieParser = require('cookie-parser')
 
 const conn_uri = process.env.MONGO_URI;
 
@@ -17,6 +18,7 @@ const app = express();
 
 app.use(express.static("public"));
 app.use(express.json());
+app.use(cookieParser())
 // app.use(
 //   expressfu({ limits: { fileSize: 10 * 1024 * 1024 }, abortOnLimit: true })
 // );
@@ -76,6 +78,15 @@ app.get("/uploadFile", (req, res) => {
   res.render("uploadFile", { title: "Test Window" });
 });
 
+// app.get("/st/new_id/SubmitLater", (req,res)=>{
+//   res.render("UploadLater", {title: "Upload Later"});
+// });
+//
+// app.get("/:id/SubmitLater", (req,res)=>{
+//   console.log(res.cookies.student_id);
+//   res.render("UploadLater", {title: "Upload Later"});
+// });
+
 app.get('/teachReg', (req, res) => {
   res.render('teachReg', { title: 'Teacher Sign Up' });
 });
@@ -92,6 +103,7 @@ app.get("/register", function (req, res) {
 // const moment = require('moment');
 
 app.get("/studentDashboard", function (req, res) {
+  console.log(req.cookies);
   Test.find().sort({ createdAt: -1 })
     .then(result => {
       res.render('studentDash', { tests: result, title: 'Student Dashboard' });
@@ -104,10 +116,17 @@ app.get("/studentDashboard", function (req, res) {
 app.get("/test/:id",(req,res)=>{
   Test.findById(req.params.id)
     .then(result => {
-      console.log(result+"this is result");
-      res.render('uploadFile', { test : result, title: 'Test Page' });
+      var rendered = {
+        test0: JSON.stringify(result)
+      }
+
+      res.render('uploadFile', { test : result, title: 'Test Page' ,rendered});
     })
     .catch(err => {
       console.log(err);
     });
 });
+
+// app.get('/SubmitLater',(req,res)=>{
+
+// })
