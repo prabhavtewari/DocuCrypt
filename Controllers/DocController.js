@@ -41,8 +41,8 @@ const doc_submit=async(req,res)=>{
       console.log(err);
     } else {
       if (foundUser) {
-        // cloudinary.v2.uploader.upload("C:/Users/HP/Documents/NodeProjects/DocuCrypt/uploads/"+req.file.filename,
-        cloudinary.v2.uploader.upload("C:/Users/prabh/Desktop/code/DocuCrypt/uploads/"+req.file.filename,
+        cloudinary.v2.uploader.upload("C:/Users/HP/Documents/NodeProjects/DocuCrypt/uploads/"+req.file.filename,
+        // cloudinary.v2.uploader.upload("C:/Users/prabh/Desktop/code/DocuCrypt/uploads/"+req.file.filename,
         { public_id: foundUser.id },
         function(error, result) {
           if(result){
