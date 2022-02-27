@@ -5,6 +5,7 @@ const findOrCreate = require('mongoose-findorcreate');
 const answerSchema = new mongoose.Schema ({
   class: String,
   test_name: String,
+  testId: String,
   SHA_key : String,
   file_link: String,
   s_id: String,

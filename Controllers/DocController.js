@@ -13,6 +13,8 @@ const passport = require("passport");
 const session = require("express-session");
 const cloudinary = require("cloudinary");
 const bodyParser = require("body-parser");
+const cookieParser = require('cookie-parser')
+
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -49,6 +51,7 @@ const doc_submit = async (req, res) => {
                 const newAns = new Answer({
                   class: req.body.class,
                   test_name: req.body.testName,
+                  testId: req.body.testId,
                   SHA_key: req.body.SHA_key,
                   file_link: result.url,
                   st_id: foundUser.id,
@@ -70,15 +73,18 @@ const doc_submit = async (req, res) => {
         else{
                 const newAns = new Answer({
                   class: req.body.class,
-                  test_name: req.body.name,
+                  test_name: req.body.testName,
+                  testId: req.body.testId,
                   SHA_key: req.body.SHA_key,
                   st_id: foundUser.id,
+                  st_uname: req.user.username,
                   comment: req.body.comment,
                 });
                 newAns.save()
                 .then((result)=>{
                   console.log("Submitted Key");
                   res.render("./submitConfirm",{title:"Submission",status:2});
+                  // res.redirect(foundUser.id+"/UploadLater");
                 })
                 .catch((err)=>{
                   console.log(err);
@@ -92,6 +98,7 @@ const doc_submit = async (req, res) => {
 
   // console.log(req.file)
 };
+
 
 const doc_register = (req, res) => {
   Student.register(
@@ -155,6 +162,18 @@ const doc_login = (req, res) => {
       console.log(err);
       res.redirect("/login");
     } else {
+      console.log("else part");
+      Student.findOne({ username: student.username}, (err, st)=> {
+        if(st){
+          res.cookie('student_id',st._id,{
+            httpOnly:true
+          });
+
+        }else{
+          console.log(err);
+        }
+      });
+
       passport.authenticate("st-local")(req, res, function () {
         res.redirect("/studentDashboard");
       });
@@ -176,5 +195,5 @@ module.exports = {
   doc_login,
   isUserLoggedIn,
   uploadStorage,
-  doc_teach_reg,
+  doc_teach_reg
 };
