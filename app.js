@@ -104,10 +104,17 @@ app.get("/studentDashboard", function (req, res) {
 app.get("/test/:id",(req,res)=>{
   Test.findById(req.params.id)
     .then(result => {
-      console.log(result+"this is result");
-      res.render('uploadFile', { test : result, title: 'Test Page' });
+      var rendered = {
+        test0: JSON.stringify(result)
+      }
+
+      res.render('uploadFile', { test : result, title: 'Test Page' ,rendered});
     })
     .catch(err => {
       console.log(err);
     });
 });
+
+// app.get('/SubmitLater',(req,res)=>{
+
+// })

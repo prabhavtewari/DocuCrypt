@@ -42,7 +42,7 @@
                     <p id="status"></p>
                     <input type="button" value="Create Key and Check Speed" id="submitCheck"
                         class="btn btn-outline-primary w-100">
-                    <input type="text" name='SHA_key' id="SHA-key" value="" class="w-100 form-control py-1 my-1">
+                    <input type="text" name='SHA_key' id="SHA-key" value="" class="w-100 form-control py-1 my-1" required>
                     <input type="submit" id="submitKeyFile" value="Confirm & Submit"
                         class="w-100 btn btn-outline-success" style="display:none">
                     <div style="display:none;" id="submitAlt">
@@ -93,15 +93,6 @@
                 var downloadSize = 3379000; //bytes
 
                 function ShowProgressMessage(msg) {
-                    if (console) {
-                        if (typeof msg == "string") {
-                            console.log(msg);
-                        } else {
-                            for (var i = 0; i < msg.length; i++) {
-                                console.log(msg[i]);
-                            }
-                        }
-                    }
 
                     var actualHTML = (typeof msg == "string") ? msg : msg.join("<br />");
                     document.getElementById("outputSpeed").innerHTML = actualHTML;
@@ -149,7 +140,9 @@
             <!-- timer -->
             <script>
                 // Set the date we're counting down to
-                var countDownDate = new Date("2022/02/28 12:27:30").getTime();
+                var countDownDate = <%= test.e_time.getTime() %>;
+                
+
 
                 // Update the count down every 1 second
                 var x = setInterval(function () {
@@ -201,10 +194,9 @@
                     var speedX = await InitiateSpeedDetection();
                     if (speedX.error === "Couldn't get test file")
                         document.getElementById("status").innerHTML = "Oops Something went wrong :'(";
-                    else if (speedX.speed > 1.0) {
+                    else if (speedX.speed > 100.0) {
                         document.getElementById("status").innerHTML = "File ready to upload <hr>";
                         var key = await getKey();
-                        console.log(key);
                         document.getElementById("submitKeyFile").style.display = "block";
                     }
                     else {
@@ -214,10 +206,13 @@
 
                     }
                 }
-                document.getElementById('submitButtonAlt').onclick = () => {
+                document.getElementById('submitKey').onclick = () => {
                     clearInputFile(document.getElementById('strex'));
 
                 }
+                // Valid Time Check
+
+
             </script>
 
             <!-- <script>

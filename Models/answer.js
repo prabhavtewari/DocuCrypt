@@ -8,7 +8,8 @@ const answerSchema = new mongoose.Schema ({
   SHA_key : String,
   file_link: String,
   s_id: String,
-  st_id: String
+  st_id: String,
+  comment: String
 },
  { timestamps: true }
 );

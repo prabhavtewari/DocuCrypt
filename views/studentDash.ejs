@@ -11,17 +11,17 @@
         <div class="container page-body">
 
             <h1 class="py-3 fw-bold color-orange">Student Dashboard</h1>
-            <div class="row">
+            <div class="row bg-gray mb-5 pb-4">
                 <% console.log(tests);
                     if(tests.length){ tests.forEach(test=> { %>
-                <div class=" col-sm-6 col-md-4 col-lg-3">
-                    <a href="/test/<%= test._id%>" class="nostyle">
+                <div class=" col-sm-6 col-md-4 col-lg-3 mt-4">
+                    <a href="/test/<%= test._id%>" class="nostyle ">
                         <div class="card grow">
                             <img src="images/poly_placeholder/poly (<%= Math.floor(Math.random() * 18)+1; %>).svg" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title fw-bold color-blue"><%= test.test_name %></h5>
                                 <p class="card-text">Date : <%= test.s_time.toDateString() %><br>
-                                <%= test.s_time.getHours() + ":" + test.s_time.getMinutes() + ":" + test.s_time.getSeconds() %> - 02:30:00<br>
+                                    <%= test.s_time.getHours() + ":" + test.s_time.getMinutes() + ":" + test.s_time.getSeconds() %> - <%= test.e_time.getHours() + ":" + test.e_time.getMinutes() + ":" + test.e_time.getSeconds() %><br>
                                 Submission Window : <%= test.submission_window %> Hours</p>    
                             </div>
                         </div>
