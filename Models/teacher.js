@@ -10,7 +10,7 @@ const teacherSchema = new mongoose.Schema ({
   password: String
 });
 
-teacherSchema.plugin(passportLocalMongoose, {usernameUnique: false});
+teacherSchema.plugin(passportLocalMongoose, {usernameUnique: false,usernameField : 'username' });
 teacherSchema.plugin(findOrCreate);
 
 const Teacher = new mongoose.model("Teacher", teacherSchema);

@@ -83,7 +83,7 @@ const doc_teach_reg=(req,res)=>{
   })
 
   const newTeacher = new Teacher({
-    tname: req.body.name,
+    tName: req.body.name,
     class: req.body.class,
     username : req.body.username
   })
@@ -117,6 +117,7 @@ const doc_login=(req,res)=>{
   req.login(student, function(err){
     if (err) {
       console.log(err);
+      res.redirect("/login");
     } else {
       console.log("elsepart");
 

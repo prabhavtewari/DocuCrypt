@@ -17,9 +17,9 @@ const app = express();
 
 app.use(express.static("public"));
 app.use(express.json());
-app.use(
-  expressfu({ limits: { fileSize: 10 * 1024 * 1024 }, abortOnLimit: true })
-);
+// app.use(
+//   expressfu({ limits: { fileSize: 10 * 1024 * 1024 }, abortOnLimit: true })
+// );
 app.set("view engine", "ejs");
 app.use(
   bodyParser.urlencoded({
@@ -75,11 +75,11 @@ app.get("/", (req, res) => {
 app.get("/uploadFile", (req, res) => {
   res.render("uploadFile", { title: "Test Window" });
 });
-app.post("/auth/submit", (req, res) => {
-  console.log(req.body);
-  console.log(req.files);
-  res.send("Hi");
-});
+// app.post("/auth/submit", (req, res) => {
+//   console.log(req.body);
+//   console.log(req.files);
+//   res.send("Hi");
+// });
 
 app.get('/teachReg', (req, res) => {
   res.render('teachReg', { title: 'Teacher Sign Up' });
@@ -90,7 +90,7 @@ app.get('/login', (req, res) => {
 });
 
 app.get("/register", function (req, res) {
-  res.render("register");
+  res.render("register", { title: 'Sign Up' });
 });
 
 
