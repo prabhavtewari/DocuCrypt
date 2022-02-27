@@ -4,6 +4,7 @@ html {
   padding: 0;
   margin: 0;
   font-family: "Open Sans", sans-serif;
+  overflow-x: hidden;
 }
 .page-body {
   min-height: calc(100vh - 118px);
@@ -40,7 +41,7 @@ a.nostyle:visited {
 
 footer,
 nav {
-  background-color: rgb(119, 45, 49);
+  background-color: #0B2C3D;
 }
 
 .navbar-brand {
@@ -141,3 +142,51 @@ section.hero, section.hero div{
   right: 20px;
 
 }
+
+
+.bg-blue{
+  background-color: #0B2C3D;
+}
+.bg-orange{
+  background-color: #FF5C3F;
+}
+.color-blue{
+  color: #0B2C3D;
+}
+.color-orange{
+  color: #FF5C3F;
+}
+.bg-gray{
+  background-color: #F2F6F7;
+}
+.hero *,.zindex-2{
+  z-index: 2;
+}
+.blob{
+z-index: 1;
+width: 30%;
+}
+.blob1{
+  position: absolute;
+  bottom: -50px;
+}
+.blob2{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+.bg-none *{
+  background-color: #f5f5f500 !important;
+}
+
+  ul 
+  { 
+  list-style-image: url('/images/arrow.png');
+  list-style-position: outside;
+  } 
+  
+  .question,.answer{
+    background-color: #F2F6F7; 
+    border-radius: 30px;
+    border: solid 2px #dddfe0;
+  }

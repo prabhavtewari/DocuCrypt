@@ -8,28 +8,30 @@
 <body>
     <%- include('./partials/nav'); %>
         <section class="hero">
-            <div class="container">
+            <div class="container bg-none">
                 <div class="row h-100">
                     <div class="col-lg-6 d-flex flex-column justify-content-center">
-                        <!-- <h1>DocuCrypt</h1> -->
-                        <h1 class="heroText">Don't Let Unstable Internet Ruin Your Semester!</h1>
+                        <h1 class="heroText color-blue" >Don't Let Unstable Internet Ruin Your Semester!</h1>
                     </div>
                     <div class="col-lg-6 d-flex align-items-center">
                         <img src="/images/study_illu.svg" alt="Online Exam Vectors by Vecteezy"
-                            title="Online Exam Vectors by Vecteezy" class="heroImg w-100 d-none d-md-block">
+                            title="Online Exam Vectors by Vecteezy" class="heroImg w-100 d-none d-lg-block">
                     </div>
                 </div>
             </div>
+            <!-- <img src="/images/blob1.svg" class="blob1 blob"alt=""> -->
+            <img src="/images/blob.svg" class="blob1 blob"alt="">
         </section>
         <section class="details pb-5">
-            <div class="container">
+            <div class="container bg-none">
                 <div class="row h-100">
                     <div class="col-lg-6 d-flex align-items-center">
                         <img src="/images/encrypt.jpg" alt="Online Exam Vectors by Vecteezy"
-                            title="Online Exam Vectors by Vecteezy" class="w-100">
+                            title="Online Exam Vectors by Vecteezy" class="w-100 zindex-2">
                     </div>
                     <div class="col-lg-6 d-flex flex-column justify-content-center">
-                        <ul class="detailsList">
+                        <h2 class="color-orange fw-bold text-center">Why DocuCrypt?</h2>
+                        <ul class="detailsList zindex-2">
                             <li>Eliminate the chances of not being able to upload your answer on time beacuse of bad
                                 internet.</li>
                             <li>DocuCrypt creates a SHA-256 signature of your PDF on your browser.</li>
@@ -48,7 +50,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-center">
-                    <h1>Get Started</h1>
+                    <h1 class="color-orange fw-bold pb-5">Get Started</h1>
                     </div>
                     <div class="col-lg-6 d-flex justify-content-center">
                         <div class="card w-100 grow1 studentCard">
@@ -75,21 +77,42 @@
                 const floatAnimation = () => {
                     const animHero = new TimelineMax({ repeat: -1 });
                     animHero
-                        .to('.heroImg', 3, { y: '-=40', rotation: '+=2', ease: Power1.easeInOut })
-                        .to('.heroImg', 3, { y: '+=40', rotation: '-=3', ease: Power1.easeInOut })
-                        .to('.heroImg', 3, { y: '-=30', rotation: '-=2', ease: Power1.easeInOut })
-                        .to('.heroImg', 3, { y: '+=30', rotation: '+=3', ease: Power1.easeInOut })
-                        .to('.heroImg', 2, { y: '-=20', rotation: '-=1', ease: Power1.easeInOut })
-                        .to('.heroImg', 2, { y: '+=20', rotation: '-=2', ease: Power1.easeInOut })
-                        .to('.heroImg', 2, { y: '-=30', rotation: '+=3', ease: Power1.easeInOut })
+                        .to('.heroImg', 3, { y: '-=40', ease: Power1.easeInOut })
+                        .to('.heroImg', 3, { y: '+=40', ease: Power1.easeInOut })
+                        .to('.heroImg', 3, { y: '-=30', ease: Power1.easeInOut })
+                        .to('.heroImg', 3, { y: '+=30', ease: Power1.easeInOut })
+                        .to('.heroImg', 2, { y: '-=20', ease: Power1.easeInOut })
+                        .to('.heroImg', 2, { y: '+=20', ease: Power1.easeInOut })
+                        .to('.heroImg', 2, { y: '-=30', ease: Power1.easeInOut })
                         .to('.heroImg', 2, { y: '+=30', ease: Power1.easeInOut })
 
                     TweenLite.to(animHero, 27, { ease: Power1.easeInOut })
 
                 }
+                const blobAnimation0 = () => {
+                    const animblob0 = new TimelineMax({ repeat: -1 });
+                    animblob0
+                        .to('.blob1', 9, {x:'+=30',y:"-=10",rotation: '+=120', ease: Power0.easeInOut })
+                        .to('.blob1', 9, {rotation: '+=120',y:"+=10", ease: Power0.easeInOut })
+                        .to('.blob1', 9, {x:'-=30',rotation: '+=120', ease: Power0.easeInOut })
+
+                    TweenLite.to(animblob0, 27, { ease: Power1.easeInOut })
+
+                }
+                // const blobAnimation1 = () => {
+                //     const animblob1 = new TimelineMax({ repeat: -1 });
+                //     animblob1
+                //         .to('.blob2', 9, {x:'-=10',rotation: '-=120', ease: Power1.easeInOut })
+                //         .to('.blob2', 9, {rotation: '-=120', ease: Power2.easeInOut })
+                //         .to('.blob2', 9, {x:'+=10',rotation: '-=120', ease: Power1.easeInOut })
+
+                //     TweenLite.to(animblob1, 27, { ease: Power1.easeInOut })
+
+                // }
 
                 floatAnimation();
-                // floatAnimation1();
+                blobAnimation0();
+                // blobAnimation1();
             </script>
 </body>
 

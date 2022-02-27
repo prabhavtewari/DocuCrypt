@@ -16,21 +16,26 @@ const conn_uri = process.env.MONGO_URI;
 const app = express();
 
 app.use(express.static("public"));
-app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.set("view engine", "ejs");
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 
-app.use(session({
-  secret: process.env.SECRET,
-  resave: false,
-  saveUninitialized: false
-}));
+app.use(
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect(conn_uri, { useNewUrlParser: true })
+mongoose
+  .connect(conn_uri, { useNewUrlParser: true })
   .then((res) => {
     console.log("Connected to DB");
     app.listen(3000);
@@ -39,11 +44,13 @@ mongoose.connect(conn_uri, { useNewUrlParser: true })
 
 mongoose.set("useCreateIndex", true);
 
-const Student = require("./Models/users")
+const Student = require("./Models/users");
 
 app.use(express.static("public"));
 app.use(express.json());
-app.use(expressfu({ limits: { fileSize: 10 * 1024 * 1024 },abortOnLimit : true }));
+app.use(
+  expressfu({ limits: { fileSize: 10 * 1024 * 1024 }, abortOnLimit: true })
+);
 app.set("view engine", "ejs");
 app.use(
   bodyParser.urlencoded({
@@ -52,16 +59,15 @@ app.use(
 );
 passport.use(Student.createStrategy());
 
-passport.serializeUser(function(user, done) {
+passport.serializeUser(function (user, done) {
   done(null, user.id);
 });
 
-passport.deserializeUser(function(id, done) {
-  Student.findById(id, function(err, user) {
+passport.deserializeUser(function (id, done) {
+  Student.findById(id, function (err, user) {
     done(err, user);
   });
 });
-
 
 app.use("/api/auth", authRoute);
 
@@ -81,10 +87,23 @@ app.post("/auth/submit", (req, res) => {
 app.get("/login", (req, res) => {
   res.render("login", { title: "Login" });
 });
-app.get('/register', (req, res) => {
-  res.render('register', { title: 'Sign Up' });
+app.get("/register", (req, res) => {
+  res.render("register", { title: "Sign Up" });
 });
 
 app.get("/register", function (req, res) {
   res.render("register");
+});
+
+const Test = require('./Models/test');
+// const moment = require('moment');
+
+app.get("/studentDashboard", function (req, res) {
+  Test.find().sort({ createdAt: -1 })
+    .then(result => {
+      res.render('studentDash', { tests: result, title: 'Student Dashboard' });
+    })
+    .catch(err => {
+      console.log(err);
+    });
 });
