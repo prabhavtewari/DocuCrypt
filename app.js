@@ -1,14 +1,14 @@
-require('dotenv').config();
+require("dotenv").config();
 
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
-const session = require('express-session');
+const session = require("express-session");
 const passport = require("passport");
+const expressfu = require("express-fileupload");
 const passportLocalMongoose = require("passport-local-mongoose");
-// const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const findOrCreate = require('mongoose-findorcreate');
+const findOrCreate = require("mongoose-findorcreate");
 const authRoute = require("./Routes/auth");
 
 const conn_uri = process.env.MONGO_URI;
@@ -16,16 +16,24 @@ const conn_uri = process.env.MONGO_URI;
 const app = express();
 
 app.use(express.static("public"));
-app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(express.json());
+app.use(
+  expressfu({ limits: { fileSize: 10 * 1024 * 1024 }, abortOnLimit: true })
+);
+app.set("view engine", "ejs");
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 
-app.use(session({
-  secret: process.env.SECRET,
-  resave: false,
-  saveUninitialized: false
-}));
+app.use(
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -48,25 +56,29 @@ passport.use('st-local',Student.createStrategy());
 passport.use('t-local',Teacher.createStrategy());
 // passport.use(Teacher.createStrategy());
 
-passport.serializeUser(function(user, done) {
+passport.serializeUser(function (user, done) {
   done(null, user.id);
 });
 
-passport.deserializeUser(function(id, done) {
-  Student.findById(id, function(err, user) {
+passport.deserializeUser(function (id, done) {
+  Student.findById(id, function (err, user) {
     done(err, user);
   });
 });
 
+app.use("/api/auth", authRoute);
 
-app.use("/api/auth", authRoute)
-
-app.get('/', (req, res) => {
-  res.render('index', { title: 'Home' });
+app.get("/", (req, res) => {
+  res.render("index", { title: "Home" });
 });
 
-app.get('/uploadFile', (req, res) => {
-  res.render('uploadFile', { title: 'Test Window' });
+app.get("/uploadFile", (req, res) => {
+  res.render("uploadFile", { title: "Test Window" });
+});
+app.post("/auth/submit", (req, res) => {
+  console.log(req.body);
+  console.log(req.files);
+  res.send("Hi");
 });
 
 app.get('/teachReg', (req, res) => {
@@ -77,26 +89,19 @@ app.get('/login', (req, res) => {
   res.render('login', { title: 'Login' });
 });
 
-app.get('/register', (req, res) => {
-  res.render('register', { title: 'Sign Up' });
-});
-
-
-
-app.get("/login", function(req, res){
-  res.render("login");
-});
-
-app.get("/register", function(req, res){
+app.get("/register", function (req, res) {
   res.render("register");
 });
 
-// cloudinary.config({
-//   cloud_name: 'dpnkosbg4',
-//   api_key: process.env.C_API_KEY,
-//   api_secret: process.env.C_SECRET
-// });
 
-// cloudinary.v2.uploader.upload("https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg",
-//   { public_id: "olympic_flag" },
-//   function(error, result) {console.log(result); });
+// const moment = require('moment');
+
+app.get("/studentDashboard", function (req, res) {
+  Test.find().sort({ createdAt: -1 })
+    .then(result => {
+      res.render('studentDash', { tests: result, title: 'Student Dashboard' });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
