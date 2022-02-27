@@ -43,10 +43,25 @@ const doc_submit=async(req,res)=>{
       if (foundUser) {
         cloudinary.v2.uploader.upload("C:/Users/HP/Documents/NodeProjects/DocuCrypt/uploads/"+req.file.filename,
         { public_id: foundUser.id },
-        function(error, result) {console.log(result,error); });
+        function(error, result) {
+          if(result){
+            const newAns = new Answer({
+              class : req.body.class,
+              test_name : req.body.name,
+              SHA_key : req.body.SHA_key,
+              file_link : result.url,
+              st_id : foundUser.id
+            })
+            newAns.save();
+            console.log(result);
+          }else{
+            console.log(err);
+          }
+
+        });
 
         foundUser.save(function(){
-        // res.redirect("/exam");
+          res.redirect("/");
         });
       }
     }
