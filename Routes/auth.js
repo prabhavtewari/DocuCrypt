@@ -20,6 +20,7 @@ reuter.use(bodyParser.urlencoded({
 }));
 
 
+// reuter.post("/submit",[DocController.isUserLoggedIn],DocController.doc_submit);
 reuter.post("/submit",[DocController.isUserLoggedIn,DocController.uploadStorage.single("strex")],DocController.doc_submit);
 
 reuter.post("/register", DocController.doc_register);

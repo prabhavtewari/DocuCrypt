@@ -11,6 +11,7 @@
 
             <h1 class="py-3 ">Exam Name</h1>
             <form action="/api/auth/submit" method="POST" enctype="multipart/form-data" class="row">
+            <!-- <form action="/test" method="POST" enctype="multipart/form-data" class="row"> -->
                 <div class="col-lg-9">
                     <div class="question">
                         <b> Q1. </b>
@@ -24,6 +25,7 @@
                             <h2 class="color-blue ">Answer</h2>
                             <input type="file" name='strex' id='strex' class="form-control my-3 " >
                             <input type="text" name='comment' class="form-control " placeholder="Comments">
+                            <input type="text" name='testName' class="d-none" value="<%= "testNameX "%>">
                         </div>
                     </div>
 
@@ -36,7 +38,6 @@
                         </b>
                         <hr>
                     </div>
-
                     <div>
                         <div id="outputSpeed"></div>
                     </div>
@@ -150,7 +151,7 @@
             <!-- timer -->
             <script>
                 // Set the date we're counting down to
-                var countDownDate = new Date("2022/02/27 12:27:30").getTime();
+                var countDownDate = new Date("2022/02/28 12:27:30").getTime();
 
                 // Update the count down every 1 second
                 var x = setInterval(function () {
@@ -173,7 +174,7 @@
                     if (distance < 0) {
                         clearInterval(x);
                         document.getElementById("timer").innerHTML = "Time's Up";
-                        document.getElementById("strex").disabled = "True";
+                        // document.getElementById("strex").disabled = "True";
 
                         submitCheck();
                     }

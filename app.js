@@ -21,11 +21,7 @@ app.use(
   expressfu({ limits: { fileSize: 10 * 1024 * 1024 }, abortOnLimit: true })
 );
 app.set("view engine", "ejs");
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  })
-);
+app.use(bodyParser.urlencoded({extended: true,}));
 
 app.use(
   session({
@@ -50,11 +46,12 @@ mongoose.set("useCreateIndex", true);
 const Student = require("./Models/users")
 const Teacher = require("./Models/teacher")
 const {Test,testSchema} = require("./Models/test")
+const {Answer,answerSchema} = require("./Models/answer")
 
 
 passport.use('st-local',Student.createStrategy());
 passport.use('t-local',Teacher.createStrategy());
-// passport.use(Teacher.createStrategy());
+
 
 passport.serializeUser(function (user, done) {
   done(null, user.id);
@@ -66,19 +63,17 @@ passport.deserializeUser(function (id, done) {
   });
 });
 
-app.use("/api/auth", authRoute);
+
+// ROUTES
 
 app.get("/", (req, res) => {
   res.render("index", { title: "Home" });
 });
 
+app.use("/api/auth", authRoute);
+
 app.get("/uploadFile", (req, res) => {
   res.render("uploadFile", { title: "Test Window" });
-});
-app.post("/auth/submit", (req, res) => {
-  console.log(req.body);
-  console.log(req.files);
-  res.send("Hi");
 });
 
 app.get('/teachReg', (req, res) => {
@@ -90,7 +85,7 @@ app.get('/login', (req, res) => {
 });
 
 app.get("/register", function (req, res) {
-  res.render("register");
+  res.render("register",{title:"Student Register"});
 });
 
 
@@ -104,4 +99,9 @@ app.get("/studentDashboard", function (req, res) {
     .catch(err => {
       console.log(err);
     });
+});
+
+app.post("/test",(req,res)=>{
+console.log(req.body);
+res.send("bub");
 });

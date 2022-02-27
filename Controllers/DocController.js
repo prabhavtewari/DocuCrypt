@@ -1,50 +1,63 @@
-require('dotenv').config();
+require("dotenv").config();
 
 const Student = require("../Models/users");
-const {Test,testSchema} = require("../Models/test")
-const Teacher = require("../Models/teacher")
-const multer = require("multer")
+const { Test, testSchema } = require("../Models/test");
+const Teacher = require("../Models/teacher");
+const multer = require("multer");
 const passportLocalMongoose = require("passport-local-mongoose");
 const mongoose = require("mongoose");
-// const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const findOrCreate = require('mongoose-findorcreate');
+const findOrCreate = require("mongoose-findorcreate");
 const passport = require("passport");
-const session = require('express-session');
-const cloudinary = require('cloudinary');
+const cloudinary = require("cloudinary");
 const bodyParser = require("body-parser");
 
 var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-
-
-        cb(null, "uploads")
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.fieldname + "-" + Date.now()+".pdf")
-    }
-})
-
-const uploadStorage = multer({ storage: storage })
-
-cloudinary.config({
-  cloud_name: 'somethingtemporary',
-  api_key: process.env.C_API_KEY,
-  api_secret: process.env.C_SECRET
+  destination: function (req, file, cb) {
+    cb(null, "uploads");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + "-" + Date.now() + ".pdf");
+  },
 });
 
+// const uploadStorage = multer({ storage: storage }).single('strex');
+const uploadStorage = multer({ storage: storage });
 
-const doc_submit=async(req,res)=>{
+cloudinary.config({
+  cloud_name: "somethingtemporary",
+  api_key: process.env.C_API_KEY,
+  api_secret: process.env.C_SECRET,
+});
+
+const doc_submit = (req, res) => {
+  // console.log(req.body);
+  // if (req.file) {
+  //   uploadStorage(req,res,function(err) {
+  //     if(err) {
+  //         return res.end("Error uploading file.");
+  //     }
+  //     res.end("File is uploaded");
+  // console.log(req.body);
+
+  // });
+  // }
+  // else{
+
+  // }
+  // res.redirect("/");
+  console.log(req.files);
 
   const submittedKey = req.body.sKey;
 
-  await Student.findById(req.user.id, function(err, foundUser){
+   Student.findById(req.user.id, function(err, foundUser){
     if (err) {
       console.log(err);
     } else {
       if (foundUser) {
-        cloudinary.v2.uploader.upload("C:/Users/HP/Documents/NodeProjects/DocuCrypt/uploads/"+req.file.filename,
-        { public_id: foundUser.id },
-        function(error, result) {console.log(result,error); });
+
+        // cloudinary.v2.uploader.upload("C:/Users/HP/Documents/NodeProjects/DocuCrypt/uploads/"+req.file.filename,
+        // { public_id: foundUser.id },
+        // function(error, result) {console.log(result,error); });
 
         foundUser.save(function(){
         // res.redirect("/exam");
@@ -54,24 +67,26 @@ const doc_submit=async(req,res)=>{
   });
 
   console.log(req.file)
-}
+};
 
-const doc_register=(req,res)=>{
-  Student.register({username: req.body.username}, req.body.password, function(err, user){
-    if (err) {
-      console.log(err);
-      res.redirect("/register");
-    } else {
-      passport.authenticate("st-local")(req, res, function(){
-        res.redirect("/uploadFile");
-      });
+const doc_register = (req, res) => {
+  Student.register(
+    { username: req.body.username },
+    req.body.password,
+    function (err, user) {
+      if (err) {
+        console.log(err);
+        res.redirect("/register");
+      } else {
+        passport.authenticate("st-local")(req, res, function () {
+          res.redirect("/uploadFile");
+        });
+      }
     }
-  });
+  );
+};
 
-
-}
-
-const doc_teach_reg=(req,res)=>{
+const doc_teach_reg = (req, res) => {
   const newTest = new Test({
     class: req.body.class,
     s_time: req.body.stime,
@@ -79,62 +94,56 @@ const doc_teach_reg=(req,res)=>{
     test_name: req.body.tname,
     teacherMail: req.body.username,
     teacherName: req.body.name,
-    submission_window: req.body.wtime
-  })
+    submission_window: req.body.wtime,
+  });
 
   const newTeacher = new Teacher({
-    tname: req.body.name,
+    tName: req.body.name,
     class: req.body.class,
-    username : req.body.username
-  })
+    username: req.body.username,
+  });
 
-  Teacher.register(newTeacher, req.body.password, function(err, user){
+  Teacher.register(newTeacher, req.body.password, function (err, user) {
     if (err) {
       console.log(err);
       res.redirect("/teachReg");
     } else {
-
       newTest.save();
 
-      passport.authenticate("t-local")(req, res, function(){
-
-        console.log("yooo")
-
+      passport.authenticate("t-local")(req, res, function () {
+        console.log("yooo");
 
         res.redirect("/uploadFile");
       });
     }
   });
-}
+};
 
-const doc_login=(req,res)=>{
-
+const doc_login = (req, res) => {
   const student = new Student({
     username: req.body.username,
-    password: req.body.password
+    password: req.body.password,
   });
 
-  req.login(student, function(err){
+  req.login(student, function (err) {
     if (err) {
       console.log(err);
     } else {
-      console.log("elsepart");
-
-      passport.authenticate("st-local")(req, res, function(){
-        res.redirect("/uploadFile");
+      console.log("Student Signed In");
+      passport.authenticate("st-local")(req, res, function () {
+        res.redirect("/");
       });
     }
   });
-}
+};
 
-const isUserLoggedIn=async(req, res, next)=> {
-  if (req.isAuthenticated()){
+const isUserLoggedIn = async (req, res, next) => {
+  if (req.isAuthenticated()) {
     next();
-    } else {
+  } else {
     res.redirect("/login");
-    }
-
-}
+  }
+};
 
 module.exports = {
   doc_submit,
@@ -142,5 +151,5 @@ module.exports = {
   doc_login,
   isUserLoggedIn,
   uploadStorage,
-  doc_teach_reg
-}
+  doc_teach_reg,
+};
