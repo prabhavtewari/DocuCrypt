@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const Student = require("../Models/users");
+const Answer = require("../Models/answer");
 const {Test,testSchema} = require("../Models/test")
 const Teacher = require("../Models/teacher")
 const multer = require("multer")
@@ -34,8 +35,6 @@ cloudinary.config({
 
 
 const doc_submit=async(req,res)=>{
-
-  const submittedKey = req.body.sKey;
 
   await Student.findById(req.user.id, function(err, foundUser){
     if (err) {
