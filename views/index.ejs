@@ -11,7 +11,7 @@
             <div class="container bg-none">
                 <div class="row h-100">
                     <div class="col-lg-6 d-flex flex-column justify-content-center">
-                        <h1 class="heroText color-blue" >Don't Let Unstable Internet Ruin Your Semester!</h1>
+                        <h1 class="heroText color-blue">Don't Let Unstable Internet Ruin Your Semester!</h1>
                     </div>
                     <div class="col-lg-6 d-flex align-items-center">
                         <img src="/images/study_illu.svg" alt="Online Exam Vectors by Vecteezy"
@@ -20,7 +20,7 @@
                 </div>
             </div>
             <!-- <img src="/images/blob1.svg" class="blob1 blob"alt=""> -->
-            <img src="/images/blob.svg" class="blob1 blob"alt="">
+            <img src="/images/blob.svg" class="blob1 blob" alt="">
         </section>
         <section class="details pb-5">
             <div class="container bg-none">
@@ -50,23 +50,37 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-center">
-                    <h1 class="color-orange fw-bold pb-5">Get Started</h1>
+                        <h1 class="color-orange fw-bold pb-5">Get Started</h1>
                     </div>
-                    <div class="col-lg-6 d-flex justify-content-center">
-                        <div class="card w-100 grow1 studentCard">
-                            <div class="card-body text-center d-flex flex-column justify-content-center">
-                                <h2>Student Login</h2>    
-                                <img src="/images/student.jpg" alt="" srcset="" class="d-none d-sm-block">
+                    <div class="col-lg-4 d-flex justify-content-center">
+                        <a href="/register" class="nostyle w-100">
+                            <div class="card w-100 grow1 studentCard">
+                                <div class="card-body text-center d-flex flex-column justify-content-center">
+                                    <h2>Student Sign Up</h2>
+                                    <!-- <img src="/images/student.jpg" alt="" srcset="" class="d-none d-sm-block"> -->
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
-                    <div class="col-lg-6 d-flex justify-content-center">
-                        <div class="card w-100 grow1 teacherCard">
-                            <div class="card-body text-center d-flex flex-column justify-content-center">
-                                <h2>Teacher Login</h2>    
-                                <img src="/images/teacher.jpg" alt="" srcset="" class="d-none d-sm-block">
+                    <div class="col-lg-4 d-flex justify-content-center">
+                        <a href="/login" class="nostyle w-100">
+                            <div class="card w-100 grow1 studentCard">
+                                <div class="card-body text-center d-flex flex-column justify-content-center">
+                                    <h2>Student Login</h2>
+                                    <!-- <img src="/images/student.jpg" alt="" srcset="" class="d-none d-sm-block"> -->
+                                </div>
                             </div>
-                        </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 d-flex justify-content-center">
+                        <a href="/teachReg" class="nostyle w-100">
+                            <div class="card w-100 grow1 teacherCard">
+                                <div class="card-body text-center d-flex flex-column justify-content-center">
+                                    <h2> Register Teacher</h2>
+                                    <!-- <img src="/images/teacher.jpg" alt="" srcset="" class="d-none d-sm-block"> -->
+                                </div>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -92,9 +106,9 @@
                 const blobAnimation0 = () => {
                     const animblob0 = new TimelineMax({ repeat: -1 });
                     animblob0
-                        .to('.blob1', 9, {x:'+=30',y:"-=10",rotation: '+=120', ease: Power0.easeInOut })
-                        .to('.blob1', 9, {rotation: '+=120',y:"+=10", ease: Power0.easeInOut })
-                        .to('.blob1', 9, {x:'-=30',rotation: '+=120', ease: Power0.easeInOut })
+                        .to('.blob1', 9, { x: '+=30', y: "-=10", rotation: '+=120', ease: Power0.easeInOut })
+                        .to('.blob1', 9, { rotation: '+=120', y: "+=10", ease: Power0.easeInOut })
+                        .to('.blob1', 9, { x: '-=30', rotation: '+=120', ease: Power0.easeInOut })
 
                     TweenLite.to(animblob0, 27, { ease: Power1.easeInOut })
 

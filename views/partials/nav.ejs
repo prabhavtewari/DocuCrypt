@@ -1,31 +1,29 @@
 <nav class="navbar navbar-expand-lg navbar-dark ">
+  <div class="container-md">
     <a class="navbar-brand" href="/">DocuCrypt</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
+    <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
       <ul class="navbar-nav">
-        <li class="nav-item <% if( title==='All blogs'){%><%= 'active' %><% } %>">
-          <a class="nav-link" href="/">Home</a>
-        </li>
+
         <li class="nav-item <% if( title==='Create a new blog'){%><%= 'active' %><% } %>">
           <a class="nav-link" href="/studentDashboard">Student Dashboard</a>
-        </li>
-        <li class="nav-item <% if( title==='About'){%><%= 'active' %><% } %>">
-          <a class="nav-link" href="/viewAnswers">View Answers</a>
         </li>
         <li class="nav-item <% if( title==='s'){%><%= 'active' %><% } %>">
           <a class="nav-link" href="/SubmitLater">Submit Open Tests</a>
         </li>
         <li class="nav-item <% if( title==='About'){%><%= 'active' %><% } %>">
-          <a class="nav-link" href="/login">Login</a>
+          <a class="nav-link" href="/viewAnswers">View Answers</a>
         </li>
-        <li class="nav-item <% if( title==='About'){%><%= 'active' %><% } %>">
-          <a class="nav-link" href="/register">Sign Up</a>
-        </li>
-        <li class="nav-item <% if( title==='About'){%><%= 'active' %><% } %>">
-          <a class="nav-link" href="/teachReg">Teacher Sign Up</a>
-        </li>
+
       </ul>
+      <div class="d-flex">
+
+          <a class="loginLink" href="/login">Login</a>
+
+      </div>
     </div>
-  </nav>
+  </div>
+</nav>
