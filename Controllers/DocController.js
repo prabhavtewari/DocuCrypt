@@ -41,10 +41,10 @@ const doc_submit = async (req, res) => {
     } else {
       if (foundUser) {
         if (req.file) {
-          cloudinary.v2.uploader.upload("C:/Users/HP/Documents/NodeProjects/DocuCrypt/uploads/"+req.file.filename,
-          // cloudinary.v2.uploader.upload(
-          //   "C:/Users/prabh/Desktop/code/DocuCrypt/uploads/" +
-          //     req.file.filename,
+          // cloudinary.v2.uploader.upload("C:/Users/HP/Documents/NodeProjects/DocuCrypt/uploads/"+req.file.filename,
+          cloudinary.v2.uploader.upload(
+            "C:/Users/prabh/Desktop/code/DocuCrypt/uploads/" +
+              req.file.filename,
             { public_id: foundUser.id },
             function (error, result) {
               if (result) {
@@ -100,10 +100,10 @@ const doc_submit = async (req, res) => {
 };
 
 const doc_uploadAgain =async(req,res)=>{
-  await cloudinary.v2.uploader.upload("C:/Users/HP/Documents/NodeProjects/DocuCrypt/uploads/"+req.file.filename,
-  // cloudinary.v2.uploader.upload(
-  //   "C:/Users/prabh/Desktop/code/DocuCrypt/uploads/" +
-  //     req.file.filename,
+  // await cloudinary.v2.uploader.upload("C:/Users/HP/Documents/NodeProjects/DocuCrypt/uploads/"+req.file.filename,
+  cloudinary.v2.uploader.upload(
+    "C:/Users/prabh/Desktop/code/DocuCrypt/uploads/" +
+      req.file.filename,
     { public_id: req.body.answerId },
     function (error, result){
       if(result){

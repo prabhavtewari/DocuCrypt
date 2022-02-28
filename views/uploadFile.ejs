@@ -198,7 +198,7 @@
                     var speedX = await InitiateSpeedDetection();
                     if (speedX.error === "Couldn't get test file")
                         document.getElementById("status").innerHTML = "Oops Something went wrong :'(";
-                    else if (speedX.speed > 200.0) {
+                    else if (speedX.speed > 2.0) {
                         document.getElementById("status").innerHTML = "File ready to upload <hr>";
                         var key = await getKey();
                         document.getElementById("submitKeyFile").style.display = "block";
