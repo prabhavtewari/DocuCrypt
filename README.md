@@ -24,9 +24,11 @@ HTML / CSS
 EJS
 
 ---
-# Demo Video URL
+# Demo
 
-https://youtu.be/ORkrx-agVhw
+<img title="Flow" alt="" src="screenshots/flow.png">
+<a href="https://youtu.be/ORkrx-agVhw"><h4 style="text-align:center;color:blue;">Demo Video</h4></a>
+
 
 # Screenshots
 
