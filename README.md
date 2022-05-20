@@ -16,12 +16,12 @@ DocuCrypt aims to eliminate this chance of losing out on grades because of bad i
 ---
 # Built With :
 
-NodeJs
-Express
-MongoDb Atlas
-Cloudinary
-HTML / CSS
-EJS
+- NodeJs
+- Express
+- MongoDb Atlas
+- Cloudinary
+- HTML / CSS
+- EJS
 
 ---
 # Demo
@@ -32,7 +32,7 @@ EJS
 
 # Screenshots
 
-<img title="Home Page" alt="Banner" src="screenshots/Banner2.jpg">
+<img title="Home Page" alt="Banner" src="screenshots/LandingPage.png">
 <img title="Home Page" alt="Dashboard" src="screenshots/Dashboard.png">
 <img title="Home Page" alt="Teach Register" src="screenshots/TeacherReg.png">
 <img title="Home Page" alt="Test Example" src="screenshots/TestExample.png">
