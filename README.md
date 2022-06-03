@@ -27,7 +27,7 @@ DocuCrypt aims to eliminate this chance of losing out on grades because of bad i
 # Demo
 
 <img title="Flow" alt="" src="screenshots/flow.png">
-<a href="https://youtu.be/ORkrx-agVhw"><h4 style="text-align:center;color:blue;">Demo Video</h4></a>
+<h3>Demo Video</h3>https://youtu.be/ORkrx-agVhw
 
 
 # Screenshots
